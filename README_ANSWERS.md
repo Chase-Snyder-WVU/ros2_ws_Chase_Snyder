@@ -7,8 +7,6 @@ Driving to the waypoint takes time, requring constant progress monitoring, and m
 This is because services are meant for instant or short tasks, while Actions support long-running functions, feedback during execution, and the ability to cancel or preempt a request/command.
 Since navigation requires all three, Actions are superior to Services in this task.
 
----
-
 ## 2. What are the three main components of an Action (goal, result, feedback)? Describe the purpose of each.
 
 | Component | Purpose |
@@ -16,8 +14,6 @@ Since navigation requires all three, Actions are superior to Services in this ta
 | **Goal** | Defines what the robot is to do (navigate to target location, grasp an object). |
 | **Feedback** | Provides updates about progress while the action is running (current position, completion progress). |
 | **Result** | Reports the final outcome (location reached, task failed). |
-
----
 
 ## 3. Why is the ability to preempt (cancel) a goal crucial in robotics?
 
