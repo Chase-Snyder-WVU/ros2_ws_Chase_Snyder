@@ -4,7 +4,7 @@
 **Assignment:** Homework 3 - ROS 2 Multi-Package System
 
 ## Project Overview
-This project implements a ROS 2 Humble simulation for a mobile robot that drives in a **2m x 2m square** using proportional linear control in an Ubuntu 22.04 WSL environment.
+This project implements a ROS 2 Humble simulation for a mobile robot that drives in a **2m x 2m square** in an Ubuntu 22.04 WSL environment.
 > **Note:** 
 > This implementation uses **only linear x and y velocity** with no turning or angular models.
 
@@ -100,6 +100,7 @@ ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {p
 ### "No Frames" Intialization
 This bug uncommonly occurs when the project is started, often displaying a failed transform message when it occurs. This is likely because on
 start-up the odometry node and controller node fail to see eachother's initialization commands resulting in an idle white robot in RViz,
+
 
 
 
