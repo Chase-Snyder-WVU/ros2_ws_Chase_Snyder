@@ -3,22 +3,16 @@
 **Course:** ROBE 313 - West Virginia University
 **Assignment:** Homework 3 - ROS 2 Multi-Package System
 
----
-
 ## Project Overview
 This project implements a ROS 2 Humble simulation for a mobile robot that drives in a **2m x 2m square** using proportional linear control in an Ubuntu 22.04 WSL environment.
 > **Note:** 
 > This implementation uses **only linear x and y velocity** with no turning or angular models.
-
----
 
 ## Main Features
 - C++ odometry node that integrats velocity to estimate robot pose and publishes robot pose with `/tf` broadcast.
 - Python controller node using TF2 feeback and a state machine to drive the square path by publishing velocity commands.
 - Custom `.srv` service to reset robot pose.
 - URDF robot model and visualization in RViz.
-
----
 
 ## Workspace Structure
 ros2_ws_Chase Snyder/
@@ -28,15 +22,11 @@ ros2_ws_Chase Snyder/
         robot_simulator_py/
         robot_bringup/
 
----
-
 ## Package Summary
 - **custom_interfaces** holds `ResetPosition.srv`
 - **robot_simulator_cpp** publishes `/tf`, integrates odometry, and provides reset service
 - **robot_simulator_py** TF2 controller state machine that publishes `/cmd_vel` for square path.
 - **robot_bringup** holds the launch file, URDF, and RViz config
-
----
 
 ## Requirements
 - ROS 2 Humble  (Ubuntu 22.04 / WSL)
@@ -48,12 +38,13 @@ ros2_ws_Chase Snyder/
 - `C++17`
 - `rclcpp`
 
----
 
 ## Build Instructions
 
 ### 1. Clone Workspace
-
+```bash
+git clone https://github.com/Chase-Snyder-WVU/ros2_ws_Chase_Snyder.git
+```
 ### 2. Source ROS 2
 ```bash
 source /opt/ros/humble/setup.bash
@@ -69,8 +60,6 @@ from ros2_ws_Chase_Snyder2
 ```bash
 ros2 launch robot_bringup robot_simulation.launch.py
 ```
-
----
 
 ## Useful Commands
 
