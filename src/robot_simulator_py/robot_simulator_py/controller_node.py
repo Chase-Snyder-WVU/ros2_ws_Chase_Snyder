@@ -79,7 +79,7 @@ class ControllerNode(Node):
                 cmd.linear.x = self.speed   
 
         elif self.state == 1:
-            #Edge 0, (2,0) to (2,2), move in the +y
+            #Edge 1, (2,0) to (2,2), move in the +y
             #Stop when reaching the goal with tolerance.
             if y >= 2.0 - self.tolerance:
                 #Change state and display state change
@@ -90,7 +90,7 @@ class ControllerNode(Node):
                 cmd.linear.y = self.speed   
 
         elif self.state == 2:
-            #Edge 0, (2,2) to (0,2), move in the -x
+            #Edge 2, (2,2) to (0,2), move in the -x
             #Stop when reaching the goal with tolerance.
             if x <= 0.0 + self.tolerance:
                 #Change state and display state change
@@ -101,7 +101,7 @@ class ControllerNode(Node):
                 cmd.linear.x = -self.speed
 
         elif self.state == 3:
-            #Edge 0, (0,2) to (0,0), move in the -y
+            #Edge 3, (0,2) to (0,0), move in the -y
             #Stop when reaching the goal with tolerance.
             if y <= 0.0 + self.tolerance:
                 #Change state and display state change
@@ -128,4 +128,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()
