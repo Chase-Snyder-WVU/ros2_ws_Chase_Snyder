@@ -41,25 +41,35 @@ ros2_ws_Chase Snyder/
 ## Build Instructions
 
 ### 1. Clone Workspace
+Open a terminal and input the following command.
 ```bash
 git clone https://github.com/Chase-Snyder-WVU/ros2_ws_Chase_Snyder.git
 ```
 ### 2. Source ROS 2
+Source Ros 2 on your system.
 ```bash
 source /opt/ros/humble/setup.bash
 ```
 ### 3. Build
+Source the project folder directory and build it.
 ```bash
 cd ros2_ws_Chase_Snyder2
 colcon build
 source install/setup.bash
 ```
 ### 4. Run Simulation 
-from ros2_ws_Chase_Snyder2
+From ros2_ws_Chase_Snyder2 run the simulation.
 ```bash
 ros2 launch robot_bringup robot_simulation.launch.py
 ```
-
+>**WSL Note:**
+>WSL fails to render the graphics with the base settings, the following commands will force software rendering though RViz remains unstable. Run them before sending the launch command to the terminal if you have this issue.
+```bash
+export LIBGL_ALWAYS_SOFTWARE=1
+export MESA_GL_VERSION_OVERRIDE=3.3
+```
+>**RViz Note:** 
+> When using RViz, the Topic and Parameter options did not function properly. You may have to directly reference the URDF file path (robot_bringup->urdf) under robot model->robot description in RViz.
 ## Useful Commands
 
 ### Run Odometry Node
@@ -87,5 +97,6 @@ ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {p
 ### "No Frames" Intialization
 This bug uncommonly occurs when the project is started, often displaying a failed transform message when it occurs. This is likely because on
 start-up the odometry node and controller node fail to see eachother's initialization commands resulting in an idle white robot in RViz,
+
 
 
