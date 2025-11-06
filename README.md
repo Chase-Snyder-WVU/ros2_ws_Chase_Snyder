@@ -81,14 +81,17 @@ ros2 run robot_simulator_cpp odometry_node
 ros2 run robot_simulator_py controller_node
 ```
 ### Inspect Graph
+In a seperate terminal while the project is running. Display the node communication as an rqt_graph.
 ```bash
 rqt_graph
 ```
 ### View Transforms
+In a seperate terminal while the odometry node, controller node, or the project is running.
 ```bash
 ros2 run tf2_tools view_frames.py
 ```
 ### Reset Robot Pose Service
+In a seperate terminal while the odometry node, controller node, or the project is running.
 ```bash
 ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}"
 ```
@@ -97,6 +100,7 @@ ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {p
 ### "No Frames" Intialization
 This bug uncommonly occurs when the project is started, often displaying a failed transform message when it occurs. This is likely because on
 start-up the odometry node and controller node fail to see eachother's initialization commands resulting in an idle white robot in RViz,
+
 
 
 
