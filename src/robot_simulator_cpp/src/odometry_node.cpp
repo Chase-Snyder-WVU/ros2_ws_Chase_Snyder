@@ -49,8 +49,8 @@ public:
     //Public display for test calls
     RCLCPP_INFO(this->get_logger(), "odometry_node started");
 
-    // Publish initial transform at (0,0) to start 
-    // controller_node
+    //Publish initial transform at (0,0) to start 
+    //controller_node
     geometry_msgs::msg::TransformStamped t;
 
     t.header.stamp = last_time_;
@@ -191,4 +191,5 @@ int main(int argc, char * argv[])
   rclcpp::spin(std::make_shared<OdometryNode>());
   rclcpp::shutdown();
   return 0;
+
 }
