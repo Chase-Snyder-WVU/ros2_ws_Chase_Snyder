@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot name="square_bot">
+
+  <!-- base_link is a small box to represent bot -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.20 0.15 0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- base point camera_link -->
+  <link name="camera_link"/>
+
+  <!-- Linking the camera and base placing the camera 0.2m forward and 0.2m upward -->
+  <joint name="base_to_camera" type="fixed">
+    <parent link="base_link"/>
+    <child  link="camera_link"/>
+    <origin xyz="0.20 0.0 0.20" rpy="0 0 0"/>
+  </joint>
+
+</robot>
