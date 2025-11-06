@@ -38,7 +38,6 @@ ros2_ws_Chase Snyder/
 - `C++17`
 - `rclcpp`
 
-
 ## Build Instructions
 
 ### 1. Clone Workspace
@@ -83,5 +82,10 @@ ros2 run tf2_tools view_frames.py
 ```bash
 ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}"
 ```
+## Known Bugs
+
+### "No Frames" Intialization
+This bug uncommonly occurs when the project is started, often displaying a failed transform message when it occurs. This is likely because on
+start-up the odometry node and controller node fail to see eachother's initialization commands resulting in an idle white robot in RViz,
 
 
