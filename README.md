@@ -9,7 +9,7 @@ This project implements a ROS 2 Humble simulation for a mobile robot that drives
 > This implementation uses **only linear x and y velocity** with no turning or angular models.
 
 ## Main Features
-- C++ odometry node that integrats velocity to estimate robot pose and publishes robot pose with `/tf` broadcast.
+- C++ odometry node that integrates velocity to estimate robot pose and publishes robot pose with `/tf` broadcast.
 - Python controller node using TF2 feeback and a state machine to drive the square path by publishing velocity commands.
 - Custom `.srv` service to reset robot pose.
 - URDF robot model and visualization in RViz.
@@ -100,6 +100,7 @@ ros2 service call /reset_position custom_interfaces/srv ResetPosition "{pose: {p
 ### "No Frames" Intialization
 This bug uncommonly occurs when the project is started, often displaying a failed transform message when it occurs. This is likely because on
 start-up the odometry node and controller node fail to see eachother's initialization commands resulting in an idle white robot in RViz,
+
 
 
 
