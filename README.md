@@ -78,7 +78,7 @@ After building, sourcing, and making sure the package works, proceed with the fo
 ### 1. Launch Teleop Simulation
 RViz will appear with a idle robot.
 ```bash
- ros2 launch robot_bringup robot_teleop_keyboard.launch.py
+ ros2 launch robot_bringup teleop.launch.py
 ```
 ### 2. Run the Keyboard
 In another terminal, initiate the Ros 2 twist keyboard.
