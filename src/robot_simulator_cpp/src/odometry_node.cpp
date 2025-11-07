@@ -17,6 +17,10 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "tf2_ros/transform_broadcaster.h"
 
+#include "nav_msgs/msg/odometry.hpp"
+#include "nav_msgs/msg/path.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
+
 #include "custom_interfaces/srv/reset_position.hpp"
 
 class OdometryNode : public rclcpp::Node
@@ -28,8 +32,15 @@ public:
     x_(0.0),
     y_(0.0)
   {
-    //Intialize last_time_
+    //Intialize last_time_ and path
     last_time_ = this->get_clock()->now();
+    path_msg_.header.frame_id = "odom";
+    path_msg_.poses.clear();
+
+    //Establish odom and path data for RViza
+    odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
+    path_pub_ = this->create_publisher<nav_msgs::msg::Path>("/path",10);
+    
 
     //Initialize the transform broadcaster (odom to base_link)
     tf_broadcaster_ =
@@ -72,10 +83,11 @@ public:
   }
 
 private:
-
   //Called every time a Twist message arrives on /cmd_vel
   void handle_command_velocity(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
+    
+
     //Current time from the node's clock
     rclcpp::Time now = this->get_clock()->now();
 
@@ -95,6 +107,35 @@ private:
     x_ += msg->linear.x * dt;
     y_ += msg->linear.y *dt;
     
+    //publish odometry
+    nav_msgs::msg::Odometry odom;
+    odom.header.stamp = now;
+    odom.header.frame_id = "odom";
+    odom.child_frame_id  = "base_link";
+
+    odom.pose.pose.position.x = x_;
+    odom.pose.pose.position.y = y_;
+    odom.pose.pose.position.z = 0.0;
+
+    odom.pose.pose.orientation.x = 0.0;
+    odom.pose.pose.orientation.y = 0.0;
+    odom.pose.pose.orientation.z = 0.0;
+    odom.pose.pose.orientation.w = 1.0;
+
+    odom_pub_->publish(odom);
+
+    //append to path and publish
+    geometry_msgs::msg::PoseStamped p;
+    p.header.stamp = now;
+    p.header.frame_id = "odom";
+    p.pose = odom.pose.pose;
+
+    path_msg_.header.stamp = now;
+    path_msg_.header.frame_id = "odom";
+    path_msg_.poses.push_back(p);
+
+    path_pub_->publish(path_msg_);
+
     ///////////////////////////////
     // Publish updated transform //
     geometry_msgs::msg::TransformStamped t;
@@ -112,6 +153,7 @@ private:
     //identity quaternion
     tf2::Quaternion q;
     q.setRPY(0.0, 0.0, 0.0);
+    q.normalize();
     t.transform.rotation.x = q.x();
     t.transform.rotation.y = q.y();
     t.transform.rotation.z = q.z();
@@ -172,6 +214,9 @@ private:
     ////////////////////////////////
   }
 
+  //Nav msg path variable.
+  nav_msgs::msg::Path path_msg_;
+
   //Integrated pose (2D) file-scoped variables
   double x_;
   double y_;
@@ -181,6 +226,10 @@ private:
 
   //ROS interfaces
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
+  //RViz visualization additions //
+  rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
+  rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr path_pub_;
+  //                             //
   rclcpp::Service<custom_interfaces::srv::ResetPosition>::SharedPtr reset_service_;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };

@@ -16,6 +16,7 @@
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>custom_interfaces</depend>
+  <depend>nav_msgs</depend>
   <!-- Added Dependencies -->
 
   <test_depend>ament_lint_auto</test_depend>
